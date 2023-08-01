@@ -8,6 +8,8 @@ function AuthInput({ name, value, setInfo }: AuthInputPropType) {
       return {
         ...prev,
         [name]: value,
+        isValidEmail: name === "email" ? value.includes("@") : prev.isValidEmail,
+        isValidPassword: name === "password" ? value.length >= 8 : prev.isValidPassword,
       };
     });
   };

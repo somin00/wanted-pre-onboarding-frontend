@@ -17,5 +17,10 @@ export const SigninWrapper = styled.main`
     width: 400px;
     padding: 10px 0;
     border-radius: 8px;
+
+    &:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
   }
 `;
