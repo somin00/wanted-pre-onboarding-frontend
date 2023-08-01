@@ -11,6 +11,10 @@ export const SigninWrapper = styled.main`
     margin-bottom: 60px;
   }
 
+  p {
+    margin-bottom: 10px;
+  }
+
   button {
     font-size: 1.2rem;
     background-color: #c4d7b2;

@@ -17,3 +17,7 @@ export interface AuthInputPropType {
   value: string;
   setInfo: Dispatch<SetStateAction<AuthType>>;
 }
+
+export interface SigninReponseType {
+  access_token: string;
+}
