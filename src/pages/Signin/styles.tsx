@@ -14,7 +14,7 @@ export const SigninWrapper = styled.main`
   button {
     font-size: 1.2rem;
     background-color: #c4d7b2;
-    width: 360px;
+    width: 400px;
     padding: 10px 0;
     border-radius: 8px;
   }

@@ -6,6 +6,8 @@ export const AuthInputWrapper = styled.div`
   margin-bottom: 50px;
 
   label {
+    width: 80px;
+    text-align: left;
     font-size: 1.2rem;
     margin-right: 10px;
   }
@@ -15,5 +17,6 @@ export const AuthInputWrapper = styled.div`
     border-radius: 8px;
     width: 300px;
     height: 40px;
+    font-size: 1.2rem;
   }
 `;

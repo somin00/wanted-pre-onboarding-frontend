@@ -1,11 +1,12 @@
-import AuthInput from "components/AuthInput";
 import React from "react";
+import AuthInput from "components/AuthInput";
+import { AuthFromPropType } from "types";
 
-function AuthForm() {
+function AuthForm({ info, setInfo }: AuthFromPropType) {
   return (
     <form>
-      <AuthInput />
-      <AuthInput />
+      <AuthInput name="email" value={info.email} setInfo={setInfo} />
+      <AuthInput name="password" value={info.password} setInfo={setInfo} />
     </form>
   );
 }
