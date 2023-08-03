@@ -24,3 +24,21 @@ export const createTodoApi = async <T>(todo: string): Promise<AxiosResponse<T> |
     return errorText;
   }
 };
+
+export const getTodoApi = async <T>(): Promise<AxiosResponse<T> | string> => {
+  try {
+    const response = await client.get("/todos", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    let errorText = "";
+
+    if (isAxiosError(error)) {
+      errorText = error.response?.data.message;
+    }
+    return errorText;
+  }
+};

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { TodoItemWrapper } from "./styles";
+import { TodoType } from "types";
 
-function TodoItem() {
+interface TodoItemProp {
+  todoInfo: TodoType;
+}
+function TodoItem({ todoInfo }: TodoItemProp) {
   const [editMode, setEditMode] = useState<boolean>(false);
   const handleClickEdit = () => {
     setEditMode(true);
@@ -15,7 +19,7 @@ function TodoItem() {
     <TodoItemWrapper>
       <label>
         <input type="checkbox" />
-        {editMode ? <input data-testid="modify-input" type="text" /> : <span>TODO 1</span>}
+        {editMode ? <input data-testid="modify-input" type="text" /> : <span>{todoInfo.todo}</span>}
       </label>
       {editMode ? (
         <>
