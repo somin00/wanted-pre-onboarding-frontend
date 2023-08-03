@@ -36,6 +36,7 @@ function Signup() {
       {signupError && <p>{signupError}</p>}
       <button
         data-testid="signup-button"
+        type="button"
         disabled={!signupInfo.isValidEmail || !signupInfo.isValidPassword ? true : false}
         onClick={handleSubmit}
       >

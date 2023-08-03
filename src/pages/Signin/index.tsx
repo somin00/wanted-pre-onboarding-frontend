@@ -40,6 +40,7 @@ function Signin() {
       {signinError && <p>{signinError}</p>}
       <button
         data-testid="signin-button"
+        type="button"
         disabled={!signinInfo.isValidEmail || !signinInfo.isValidPassword ? true : false}
         onClick={handleSubmit}
       >
