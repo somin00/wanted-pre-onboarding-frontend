@@ -4,8 +4,9 @@ import { TodoType } from "types";
 
 interface TodoItemProp {
   todoInfo: TodoType;
+  deleteTodo: (id: number) => Promise<void>;
 }
-function TodoItem({ todoInfo }: TodoItemProp) {
+function TodoItem({ todoInfo, deleteTodo }: TodoItemProp) {
   const [editMode, setEditMode] = useState<boolean>(false);
   const handleClickEdit = () => {
     setEditMode(true);
@@ -13,6 +14,10 @@ function TodoItem({ todoInfo }: TodoItemProp) {
 
   const handleCancelEdit = () => {
     setEditMode(false);
+  };
+
+  const handleDeleteTodo = () => {
+    deleteTodo(todoInfo.id);
   };
 
   return (
@@ -35,7 +40,7 @@ function TodoItem({ todoInfo }: TodoItemProp) {
           <button data-testid="modify-button" type="button" onClick={handleClickEdit}>
             수정
           </button>
-          <button data-testid="delete-button" type="button">
+          <button data-testid="delete-button" type="button" onClick={handleDeleteTodo}>
             삭제
           </button>
         </>
