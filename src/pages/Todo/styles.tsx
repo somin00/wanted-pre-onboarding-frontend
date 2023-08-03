@@ -15,4 +15,9 @@ export const TodoWrapper = styled.div`
   ul {
     width: 460px;
   }
+
+  p {
+    color: red;
+    margin-bottom: 10px;
+  }
 `;

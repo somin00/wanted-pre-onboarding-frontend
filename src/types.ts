@@ -21,3 +21,10 @@ export interface AuthInputPropType {
 export interface SigninReponseType {
   access_token: string;
 }
+
+export interface TodoType {
+  id: number;
+  todo: string;
+  isCompleted: boolean;
+  userId: number;
+}

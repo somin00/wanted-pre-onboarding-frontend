@@ -1,13 +1,19 @@
-import React from "react";
+import React, { FormEvent, useRef, RefObject } from "react";
 import { TodoFormWrapper } from "./styles";
 
-function TodoForm() {
+interface TodoFormProp {
+  submitTodo: (e: FormEvent<HTMLFormElement>, inputRef: RefObject<HTMLInputElement>) => void;
+}
+function TodoForm({ submitTodo }: TodoFormProp) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmitInput = (e: FormEvent<HTMLFormElement>) => {
+    submitTodo(e, inputRef);
+  };
   return (
-    <TodoFormWrapper>
-      <input data-testid="new-todo-input" type="text" placeholder="할 일을 입력해주세요." />
-      <button data-testid="new-todo-add-button" type="button">
-        추가
-      </button>
+    <TodoFormWrapper onSubmit={handleSubmitInput}>
+      <input data-testid="new-todo-input" type="text" ref={inputRef} placeholder="할 일을 입력해주세요." />
+      <button data-testid="new-todo-add-button">추가</button>
     </TodoFormWrapper>
   );
 }
