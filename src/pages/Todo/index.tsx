@@ -3,7 +3,7 @@ import { TodoWrapper } from "./styles";
 import TodoForm from "components/TodoForm";
 import TodoItem from "components/TodoItem";
 import { TodoType } from "types";
-import { createTodoApi, deleteTodoApi, getTodoApi } from "service/todo";
+import { createTodoApi, deleteTodoApi, getTodoApi, updateTodoApi } from "service/todo";
 function Todo() {
   const [todoList, setTodoList] = useState<TodoType[]>([]);
   const [failMessage, setFailMessage] = useState<string>("");
@@ -27,6 +27,52 @@ function Todo() {
         return [...prev, response.data as TodoType];
       });
       inputRef.current!.value = "";
+    }
+  };
+
+  const handleEditTodo = async (todoInfo: TodoType) => {
+    setFailMessage("");
+    if (todoInfo.todo.trim().length === 0) {
+      setFailMessage("수정할 내용을 입력해주세요.");
+      return;
+    }
+    const response = await updateTodoApi(todoInfo);
+
+    if (typeof response === "string") {
+      setFailMessage("내용 수정을 실패했습니다.");
+      return;
+    }
+    if (response.status === 200) {
+      const data = response.data as TodoType;
+      const newTodoList = todoList.map((todo) => {
+        if (todo.id === data.id) {
+          return (todo = data);
+        } else {
+          return todo;
+        }
+      });
+      setTodoList(newTodoList);
+    }
+  };
+
+  const handleEditComplete = async (todoInfo: TodoType) => {
+    setFailMessage("");
+    const response = await updateTodoApi(todoInfo);
+
+    if (typeof response === "string") {
+      setFailMessage("완료 여부 수정을 실패했습니다.");
+      return;
+    }
+    if (response.status === 200) {
+      const data = response.data as TodoType;
+      const newTodoList = todoList.map((todo) => {
+        if (todo.id === data.id) {
+          return (todo = data);
+        } else {
+          return todo;
+        }
+      });
+      setTodoList(newTodoList);
     }
   };
 
@@ -66,7 +112,13 @@ function Todo() {
       ) : (
         <ul>
           {todoList.map((todo) => (
-            <TodoItem key={todo.id} todoInfo={todo} deleteTodo={handleDelete} />
+            <TodoItem
+              key={todo.id}
+              todoInfo={todo}
+              handleEditTodo={handleEditTodo}
+              handleEditComplete={handleEditComplete}
+              deleteTodo={handleDelete}
+            />
           ))}
         </ul>
       )}
