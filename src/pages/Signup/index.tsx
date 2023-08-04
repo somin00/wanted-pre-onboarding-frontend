@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { SignupWrapper } from "./styles";
 import AuthForm from "components/AuthForm";
 import { AuthType } from "types";
@@ -16,7 +16,8 @@ function Signup() {
   });
   const [signupError, setSignupError] = useState<string>("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setSignupError("");
     const { email, password } = signupInfo;
     const response = await signupApi(email, password);
@@ -32,16 +33,17 @@ function Signup() {
   return (
     <SignupWrapper>
       <h1>회원가입</h1>
-      <AuthForm info={signupInfo} setInfo={setSignupInfo} />
-      {signupError && <p>{signupError}</p>}
-      <button
-        data-testid="signup-button"
-        type="button"
-        disabled={!signupInfo.isValidEmail || !signupInfo.isValidPassword ? true : false}
-        onClick={handleSubmit}
-      >
-        회원가입
-      </button>
+      <form onSubmit={handleSubmit}>
+        <AuthForm info={signupInfo} setInfo={setSignupInfo} />
+        {signupError && <p>{signupError}</p>}
+        <button
+          data-testid="signup-button"
+          type="submit"
+          disabled={!signupInfo.isValidEmail || !signupInfo.isValidPassword ? true : false}
+        >
+          회원가입
+        </button>
+      </form>
     </SignupWrapper>
   );
 }

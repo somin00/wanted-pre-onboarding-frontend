@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import AuthForm from "components/AuthForm";
 import { SigninWrapper } from "./styles";
 import { AuthType, SigninReponseType } from "types";
@@ -16,7 +16,8 @@ function Signin() {
   });
   const [signinError, setSigninError] = useState<string>("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setSigninError("");
     const { email, password } = signinInfo;
     const response = await signinApi(email, password);
@@ -36,16 +37,17 @@ function Signin() {
   return (
     <SigninWrapper>
       <h1>로그인</h1>
-      <AuthForm info={signinInfo} setInfo={setSigninInfo} />
-      {signinError && <p>{signinError}</p>}
-      <button
-        data-testid="signin-button"
-        type="button"
-        disabled={!signinInfo.isValidEmail || !signinInfo.isValidPassword ? true : false}
-        onClick={handleSubmit}
-      >
-        로그인
-      </button>
+      <form onSubmit={handleSubmit}>
+        <AuthForm info={signinInfo} setInfo={setSigninInfo} />
+        {signinError && <p>{signinError}</p>}
+        <button
+          data-testid="signin-button"
+          type="submit"
+          disabled={!signinInfo.isValidEmail || !signinInfo.isValidPassword ? true : false}
+        >
+          로그인
+        </button>
+      </form>
     </SigninWrapper>
   );
 }

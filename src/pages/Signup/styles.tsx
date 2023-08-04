@@ -13,6 +13,7 @@ export const SignupWrapper = styled.main`
   }
 
   p {
+    text-align: center;
     margin-bottom: 10px;
   }
 

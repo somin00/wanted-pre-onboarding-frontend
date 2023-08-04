@@ -12,6 +12,7 @@ export const SigninWrapper = styled.main`
   }
 
   p {
+    text-align: center;
     margin-bottom: 10px;
   }
 
