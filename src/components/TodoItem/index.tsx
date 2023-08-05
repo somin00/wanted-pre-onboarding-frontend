@@ -39,7 +39,6 @@ function TodoItem({ todoInfo, handleEditTodo, handleEditComplete, deleteTodo }: 
 
   const handleSubmit = async () => {
     handleEditTodo(editedTodo);
-    setEditedTodo(todoInfo);
     setEditMode(false);
   };
 
