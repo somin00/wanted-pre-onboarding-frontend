@@ -14,7 +14,7 @@ npm start
 
 ### 배포 링크
 
-https://wanted-pre-onboarding-front.netlify.app/signin
+https://wanted-pre-onboarding-front.netlify.app
 
 <br/>
 
