@@ -1,5 +1,6 @@
 import styled from "styled-components";
-export const SigninWrapper = styled.main`
+
+export const AuthWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
