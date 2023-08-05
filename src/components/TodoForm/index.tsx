@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, RefObject } from "react";
+import React, { FormEvent, useRef, RefObject, useCallback } from "react";
 import { TodoFormWrapper } from "./styles";
 
 interface TodoFormProp {
@@ -7,9 +7,12 @@ interface TodoFormProp {
 function TodoForm({ submitTodo }: TodoFormProp) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmitInput = (e: FormEvent<HTMLFormElement>) => {
-    submitTodo(e, inputRef);
-  };
+  const handleSubmitInput = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      submitTodo(e, inputRef);
+    },
+    [submitTodo]
+  );
   return (
     <TodoFormWrapper onSubmit={handleSubmitInput}>
       <input data-testid="new-todo-input" type="text" ref={inputRef} placeholder="할 일을 입력해주세요." />

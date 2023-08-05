@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useState, FormEvent, useEffect, useCallback } from "react";
 import { AuthWrapper } from "./styles";
 import AuthForm from "components/AuthForm";
 import { AuthType, SigninReponseType } from "types";
@@ -16,38 +16,44 @@ function Auth() {
 
   const [error, setError] = useState<string>("");
 
-  const handleSubmitSignup = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
-    const { email, password } = userInfo;
-    const response = await signupApi(email, password);
-    if (typeof response === "string") {
-      setError(response);
-      return;
-    }
-    if (response.status === 201) {
-      navigate("/signin");
-    }
-  };
-
-  const handleSubmitSignin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
-    const { email, password } = userInfo;
-    const response = await signinApi(email, password);
-    if (typeof response === "string") {
-      setError(response);
-      return;
-    }
-    if (response.status === 200) {
-      if (response.data) {
-        const { access_token } = response.data as SigninReponseType;
-        client.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-        localStorage.setItem("access_token", access_token);
+  const handleSubmitSignup = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setError("");
+      const { email, password } = userInfo;
+      const response = await signupApi(email, password);
+      if (typeof response === "string") {
+        setError(response);
+        return;
       }
-      navigate("/todo");
-    }
-  };
+      if (response.status === 201) {
+        navigate("/signin");
+      }
+    },
+    [navigate, userInfo]
+  );
+
+  const handleSubmitSignin = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setError("");
+      const { email, password } = userInfo;
+      const response = await signinApi(email, password);
+      if (typeof response === "string") {
+        setError(response);
+        return;
+      }
+      if (response.status === 200) {
+        if (response.data) {
+          const { access_token } = response.data as SigninReponseType;
+          client.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+          localStorage.setItem("access_token", access_token);
+        }
+        navigate("/todo");
+      }
+    },
+    [navigate, userInfo]
+  );
 
   useEffect(() => {
     setUserInfo(initUserInfo);

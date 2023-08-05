@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { TodoItemWrapper } from "./styles";
 import { TodoType } from "types";
 
@@ -13,7 +13,7 @@ function TodoItem({ todoInfo, handleEditTodo, handleEditComplete, deleteTodo }: 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [editedTodo, setEditedTodo] = useState<TodoType>(todoInfo);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setEditedTodo((prev) => {
       return {
@@ -21,13 +21,13 @@ function TodoItem({ todoInfo, handleEditTodo, handleEditComplete, deleteTodo }: 
         todo: value,
       };
     });
-  };
+  }, []);
 
-  const handleClickEdit = () => {
+  const handleClickEdit = useCallback(() => {
     setEditMode(true);
-  };
+  }, []);
 
-  const handleToggleComplete = () => {
+  const handleToggleComplete = useCallback(() => {
     setEditedTodo((prev) => {
       return {
         ...prev,
@@ -35,21 +35,21 @@ function TodoItem({ todoInfo, handleEditTodo, handleEditComplete, deleteTodo }: 
       };
     });
     handleEditComplete({ ...editedTodo, isCompleted: !editedTodo.isCompleted });
-  };
+  }, [editedTodo, handleEditComplete]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     handleEditTodo(editedTodo);
     setEditMode(false);
-  };
+  }, [editedTodo, handleEditTodo]);
 
-  const handleCancelEdit = () => {
+  const handleCancelEdit = useCallback(() => {
     setEditedTodo(todoInfo);
     setEditMode(false);
-  };
+  }, [todoInfo]);
 
-  const handleDeleteTodo = () => {
+  const handleDeleteTodo = useCallback(() => {
     deleteTodo(todoInfo.id);
-  };
+  }, [deleteTodo, todoInfo.id]);
 
   useEffect(() => {
     if (editMode) {
