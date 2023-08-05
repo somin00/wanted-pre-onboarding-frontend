@@ -4,6 +4,7 @@ import Navbar from "components/Navbar";
 import Auth from "pages/Auth";
 import Home from "pages/Home";
 import Todo from "pages/Todo";
+import NotFound from "pages/NotFound";
 
 function App() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function App() {
         <Route path="/signup" element={<Auth />}></Route>
         <Route path="/signin" element={<Auth />}></Route>
         <Route path="/todo" element={<Todo />}></Route>
+        <Route path="/*" element={<NotFound />}></Route>
       </Routes>
     </>
   );
