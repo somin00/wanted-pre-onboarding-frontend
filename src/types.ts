@@ -28,3 +28,9 @@ export interface TodoType {
   isCompleted: boolean;
   userId: number;
 }
+
+export interface ErrorType {
+  error: string;
+  message: string;
+  statudCode: number;
+}
