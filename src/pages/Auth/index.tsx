@@ -4,6 +4,7 @@ import AuthForm from "components/AuthForm";
 import { AuthType, SigninReponseType } from "types";
 import { signupApi, signinApi } from "service/auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import { client } from "service/api";
 
 const initUserInfo: AuthType = { email: "", password: "", isValidEmail: false, isValidPassword: false };
 
@@ -41,6 +42,7 @@ function Auth() {
     if (response.status === 200) {
       if (response.data) {
         const { access_token } = response.data as SigninReponseType;
+        client.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
         localStorage.setItem("access_token", access_token);
       }
       navigate("/todo");
