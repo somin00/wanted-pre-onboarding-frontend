@@ -1,51 +1,54 @@
-import React, { FormEvent, RefObject, useCallback, useEffect, useState } from "react";
-import { TodoWrapper } from "./styles";
-import TodoForm from "components/TodoForm";
-import TodoItem from "components/TodoItem";
-import { TodoType } from "types";
-import { createTodoApi, deleteTodoApi, getTodoApi, updateTodoApi } from "service/todo";
+import React, { FormEvent, RefObject, useCallback, useEffect, useState } from 'react';
+import { TodoWrapper } from './styles';
+import TodoForm from 'components/TodoForm';
+import TodoItem from 'components/TodoItem';
+import { TodoType } from 'types';
+import { createTodoApi, deleteTodoApi, getTodoApi, updateTodoApi } from 'service/todo';
 function Todo() {
   const [todoList, setTodoList] = useState<TodoType[]>([]);
-  const [failMessage, setFailMessage] = useState<string>("");
-  const [failLoad, setFailLoad] = useState<string>("");
+  const [failMessage, setFailMessage] = useState<string>('');
+  const [failLoad, setFailLoad] = useState<string>('');
 
-  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>, inputRef: RefObject<HTMLInputElement>) => {
-    e.preventDefault();
-    setFailMessage("");
-    if (!inputRef.current) return;
-    if (inputRef.current.value.trim().length === 0) {
-      setFailMessage("할 일을 입력해주세요.");
-      return;
-    }
-    const response = await createTodoApi(inputRef.current.value);
-    if (typeof response === "string") {
-      setFailMessage("다시 시도해주세요.");
-      return;
-    }
-    if (response.status === 201) {
-      setTodoList((prev) => {
-        return [...prev, response.data as TodoType];
-      });
-      inputRef.current!.value = "";
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>, inputRef: RefObject<HTMLInputElement>) => {
+      e.preventDefault();
+      setFailMessage('');
+      if (!inputRef.current) return;
+      if (inputRef.current.value.trim().length === 0) {
+        setFailMessage('할 일을 입력해주세요.');
+        return;
+      }
+      const response = await createTodoApi(inputRef.current.value);
+      if (typeof response === 'string') {
+        setFailMessage('다시 시도해주세요.');
+        return;
+      }
+      if (response.status === 201) {
+        setTodoList(prev => {
+          return [...prev, response.data as TodoType];
+        });
+        inputRef.current!.value = '';
+      }
+    },
+    [],
+  );
 
   const handleEditTodo = useCallback(
     async (todoInfo: TodoType) => {
-      setFailMessage("");
+      setFailMessage('');
       if (todoInfo.todo.trim().length === 0) {
-        setFailMessage("수정할 내용을 입력해주세요.");
+        setFailMessage('수정할 내용을 입력해주세요.');
         return;
       }
       const response = await updateTodoApi(todoInfo);
 
-      if (typeof response === "string") {
-        setFailMessage("내용 수정을 실패했습니다.");
+      if (typeof response === 'string') {
+        setFailMessage('내용 수정을 실패했습니다.');
         return;
       }
       if (response.status === 200) {
         const data = response.data as TodoType;
-        const newTodoList = todoList.map((todo) => {
+        const newTodoList = todoList.map(todo => {
           if (todo.id === data.id) {
             return (todo = data);
           } else {
@@ -55,21 +58,21 @@ function Todo() {
         setTodoList(newTodoList);
       }
     },
-    [todoList]
+    [todoList],
   );
 
   const handleEditComplete = useCallback(
     async (todoInfo: TodoType) => {
-      setFailMessage("");
+      setFailMessage('');
       const response = await updateTodoApi(todoInfo);
 
-      if (typeof response === "string") {
-        setFailMessage("완료 여부 수정을 실패했습니다.");
+      if (typeof response === 'string') {
+        setFailMessage('완료 여부 수정을 실패했습니다.');
         return;
       }
       if (response.status === 200) {
         const data = response.data as TodoType;
-        const newTodoList = todoList.map((todo) => {
+        const newTodoList = todoList.map(todo => {
           if (todo.id === data.id) {
             return (todo = data);
           } else {
@@ -79,27 +82,27 @@ function Todo() {
         setTodoList(newTodoList);
       }
     },
-    [todoList]
+    [todoList],
   );
 
   const handleDelete = useCallback(async (id: number) => {
-    setFailMessage("");
+    setFailMessage('');
     const response = await deleteTodoApi(id);
-    if (typeof response === "string") {
-      setFailMessage("목록 삭제에 실패했습니다.");
+    if (typeof response === 'string') {
+      setFailMessage('목록 삭제에 실패했습니다.');
       return;
     }
     if (response.status === 204) {
-      setTodoList((prev) => prev.filter((todo) => todo.id !== id));
+      setTodoList(prev => prev.filter(todo => todo.id !== id));
     }
   }, []);
 
   useEffect(() => {
-    setFailMessage("");
-    setFailLoad("");
-    getTodoApi().then((response) => {
-      if (typeof response === "string") {
-        setFailLoad("데이터를 불러오지 못했습니다.");
+    setFailMessage('');
+    setFailLoad('');
+    getTodoApi().then(response => {
+      if (typeof response === 'string') {
+        setFailLoad('데이터를 불러오지 못했습니다.');
         return;
       }
       if (response.status === 200) {
@@ -117,7 +120,7 @@ function Todo() {
         <p>{failLoad}</p>
       ) : (
         <ul>
-          {todoList.map((todo) => (
+          {todoList.map(todo => (
             <TodoItem
               key={todo.id}
               todoInfo={todo}

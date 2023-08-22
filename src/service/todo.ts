@@ -1,11 +1,11 @@
-import { AxiosResponse, AxiosError } from "axios";
-import { client } from "./api";
-import { TodoType } from "types";
-import { errorResponse } from "utils/errorResponse";
+import { AxiosResponse, AxiosError } from 'axios';
+import { client } from './api';
+import { TodoType } from 'types';
+import { errorResponse } from 'utils/errorResponse';
 
 export const createTodoApi = async <T>(todo: string): Promise<AxiosResponse<T> | string> => {
   try {
-    const response = await client.post("/todos", {
+    const response = await client.post('/todos', {
       todo,
     });
     return response;
@@ -16,7 +16,7 @@ export const createTodoApi = async <T>(todo: string): Promise<AxiosResponse<T> |
 
 export const getTodoApi = async <T>(): Promise<AxiosResponse<T> | string> => {
   try {
-    const response = await client.get("/todos");
+    const response = await client.get('/todos');
     return response;
   } catch (error) {
     return errorResponse(error as AxiosError);

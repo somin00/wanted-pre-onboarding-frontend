@@ -1,5 +1,5 @@
-import React from "react";
-import { HomeWrapper } from "./styles";
+import React from 'react';
+import { HomeWrapper } from './styles';
 
 function Home() {
   return (

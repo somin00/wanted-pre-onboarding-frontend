@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TodoItemWrapper = styled.li`
   display: flex;
@@ -18,7 +18,7 @@ export const TodoItemWrapper = styled.li`
     line-height: 32px;
   }
 
-  input[type="text"] {
+  input[type='text'] {
     width: 320px;
     border: 1px solid gray;
     border-radius: 4px;
@@ -27,7 +27,7 @@ export const TodoItemWrapper = styled.li`
     font-size: 1.2rem;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     margin-right: 10px;
     width: 20px;
     height: 20px;

@@ -1,7 +1,7 @@
-import React from "react";
-import AuthInput from "components/AuthInput";
-import { AuthFromPropType } from "types";
-import { AuthFormWrapper } from "./styles";
+import React from 'react';
+import AuthInput from 'components/AuthInput';
+import { AuthFromPropType } from 'types';
+import { AuthFormWrapper } from './styles';
 
 function AuthForm({ info, setInfo }: AuthFromPropType) {
   return (

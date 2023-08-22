@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
-import { TodoItemWrapper } from "./styles";
-import { TodoType } from "types";
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { TodoItemWrapper } from './styles';
+import { TodoType } from 'types';
 
 interface TodoItemProp {
   todoInfo: TodoType;
@@ -15,7 +15,7 @@ function TodoItem({ todoInfo, handleEditTodo, handleEditComplete, deleteTodo }: 
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
-    setEditedTodo((prev) => {
+    setEditedTodo(prev => {
       return {
         ...prev,
         todo: value,
@@ -28,7 +28,7 @@ function TodoItem({ todoInfo, handleEditTodo, handleEditComplete, deleteTodo }: 
   }, []);
 
   const handleToggleComplete = useCallback(() => {
-    setEditedTodo((prev) => {
+    setEditedTodo(prev => {
       return {
         ...prev,
         isCompleted: !prev.isCompleted,

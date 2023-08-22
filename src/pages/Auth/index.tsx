@@ -1,12 +1,17 @@
-import React, { useState, FormEvent, useEffect, useCallback } from "react";
-import { AuthWrapper } from "./styles";
-import AuthForm from "components/AuthForm";
-import { AuthType, SigninReponseType } from "types";
-import { signupApi, signinApi } from "service/auth";
-import { useLocation, useNavigate } from "react-router-dom";
-import { client } from "service/api";
+import React, { useState, FormEvent, useEffect, useCallback } from 'react';
+import { AuthWrapper } from './styles';
+import AuthForm from 'components/AuthForm';
+import { AuthType, SigninReponseType } from 'types';
+import { signupApi, signinApi } from 'service/auth';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { client } from 'service/api';
 
-const initUserInfo: AuthType = { email: "", password: "", isValidEmail: false, isValidPassword: false };
+const initUserInfo: AuthType = {
+  email: '',
+  password: '',
+  isValidEmail: false,
+  isValidPassword: false,
+};
 
 function Auth() {
   const { pathname } = useLocation();
@@ -14,45 +19,45 @@ function Auth() {
 
   const [userInfo, setUserInfo] = useState<AuthType>(initUserInfo);
 
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
 
   const handleSubmitSignup = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setError("");
+      setError('');
       const { email, password } = userInfo;
       const response = await signupApi(email, password);
-      if (typeof response === "string") {
+      if (typeof response === 'string') {
         setError(response);
         return;
       }
       if (response.status === 201) {
-        navigate("/signin");
+        navigate('/signin');
       }
     },
-    [navigate, userInfo]
+    [navigate, userInfo],
   );
 
   const handleSubmitSignin = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setError("");
+      setError('');
       const { email, password } = userInfo;
       const response = await signinApi(email, password);
-      if (typeof response === "string") {
+      if (typeof response === 'string') {
         setError(response);
         return;
       }
       if (response.status === 200) {
         if (response.data) {
           const { access_token } = response.data as SigninReponseType;
-          client.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-          localStorage.setItem("access_token", access_token);
+          client.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+          localStorage.setItem('access_token', access_token);
         }
-        navigate("/todo");
+        navigate('/todo');
       }
     },
-    [navigate, userInfo]
+    [navigate, userInfo],
   );
 
   useEffect(() => {
@@ -61,16 +66,16 @@ function Auth() {
 
   return (
     <AuthWrapper>
-      <h1>{pathname === "/signup" ? "회원가입" : "로그인"}</h1>
-      <form onSubmit={pathname === "/signup" ? handleSubmitSignup : handleSubmitSignin}>
+      <h1>{pathname === '/signup' ? '회원가입' : '로그인'}</h1>
+      <form onSubmit={pathname === '/signup' ? handleSubmitSignup : handleSubmitSignin}>
         <AuthForm info={userInfo} setInfo={setUserInfo} />
         {error && <p>{error}</p>}
         <button
-          data-testid={pathname === "/signup" ? "signup-button" : "signin-button"}
+          data-testid={pathname === '/signup' ? 'signup-button' : 'signin-button'}
           type="submit"
           disabled={!userInfo.isValidEmail || !userInfo.isValidPassword ? true : false}
         >
-          {pathname === "/signup" ? "회원가입" : "로그인"}
+          {pathname === '/signup' ? '회원가입' : '로그인'}
         </button>
       </form>
     </AuthWrapper>

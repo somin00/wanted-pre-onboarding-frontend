@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import Navbar from "components/Navbar";
-import Auth from "pages/Auth";
-import Home from "pages/Home";
-import Todo from "pages/Todo";
-import NotFound from "pages/NotFound";
+import React, { useEffect } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import Navbar from 'components/Navbar';
+import Auth from 'pages/Auth';
+import Home from 'pages/Home';
+import Todo from 'pages/Todo';
+import NotFound from 'pages/NotFound';
 
 function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (!token && pathname === "/todo") {
-      navigate("/signin");
-    } else if ((token && pathname === "/signup") || (token && pathname === "/signin")) {
-      navigate("/todo");
+    const token = localStorage.getItem('access_token');
+    if (!token && pathname === '/todo') {
+      navigate('/signin');
+    } else if ((token && pathname === '/signup') || (token && pathname === '/signin')) {
+      navigate('/todo');
     }
   }, [navigate, pathname]);
 
