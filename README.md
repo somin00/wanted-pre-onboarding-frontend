@@ -12,12 +12,6 @@ npm start
 ```
 <br/>
 
-### 배포 링크
-
-https://wanted-pre-onboarding-front.netlify.app
-
-<br/>
-
 ### 기능 구현 내용
 
 ### 1. 회원가입
