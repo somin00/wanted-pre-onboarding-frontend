@@ -15,7 +15,7 @@ npm start
 ### 기능 구현 내용
 
 ### 1. 회원가입
-
+![회원가입](https://github.com/somin00/wanted-pre-onboarding-frontend/assets/61578822/a183b7c9-38c4-457c-9f94-4ac5789173c4)
 이메일과 비밀번호를 통해 회원가입합니다.
 <br/>
 
@@ -42,7 +42,7 @@ npm start
 <br/>
 
 ### 2. 로그인
-
+![로그인](https://github.com/somin00/wanted-pre-onboarding-frontend/assets/61578822/0c4444e2-b899-4759-a37d-5bea7ab8bc7f)
 이메일과 비밀번호를 통해 로그인합니다.
 <br/>
 
@@ -71,6 +71,7 @@ npm start
 <br/>
 
 ### 3. 투두페이지
+![투두리스트](https://github.com/somin00/wanted-pre-onboarding-frontend/assets/61578822/45d84ba0-462b-4dac-95bd-e565bf163f40)
 
 **[목록 렌더링]**
 
@@ -105,5 +106,6 @@ npm start
 <br/>
 
 **[리다이렉트]**
+![리다이렉트](https://github.com/somin00/wanted-pre-onboarding-frontend/assets/61578822/bbbf94a4-6820-4fa0-b484-80f561e7a68d)
 
 로그인한 사용자가 아닌 경우(로컬스토리지에 엑세스 토큰이 존재하지 않는 경우) 투두페이지에 접근하면 로그인 페이지로 이동합니다.
